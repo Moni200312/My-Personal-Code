@@ -1,0 +1,160 @@
+name: Vorax'Zhalethyr
+automation:
+  - type: condition
+    condition: level < 10
+    onTrue:
+      - type: variable
+        name: weapbonus
+        value: "1"
+    onFalse:
+      - type: condition
+        condition: level < 15
+        onTrue:
+          - type: variable
+            name: weapbonus
+            value: "2"
+        onFalse:
+          - type: variable
+            name: weapbonus
+            value: "3"
+        errorBehaviour: "false"
+    errorBehaviour: "false"
+
+  - type: condition
+    condition: choice == ""
+    onTrue:
+      - type: target
+        target: all
+        effects:
+          - type: attack
+            hit:
+              - type: damage
+                damage: 1d10 + {charismaMod} + {weapbonus} [slashing]
+            miss: []  # Required field added to fix automation error
+            attackBonus: charismaMod + proficiencyBonus + weapbonus
+    onFalse: []
+    errorBehaviour: "false"
+
+  - type: condition
+    condition: choice == "cleave"
+    onTrue:
+      - type: counter
+        counter: Eldritch Cleave
+        amount: "1"
+        allowOverflow: false
+      - type: target
+        target: all
+        effects:
+          - type: save
+            stat: wis
+            fail:
+              - type: damage
+                damage: 3d6 [necrotic]
+              - type: text
+                text: Target is frightened until the end of its next turn.
+                title: Dreadful Cleave
+            success: []
+            dc: 8 + charismaMod + proficiencyBonus + weapbonus
+      - type: text
+        title: Eldritch Cleave
+        text: Once per short rest, when you hit with a melee attack, you can unleash an arc of necrotic force. Each creature of your choice within 10 feet must succeed a Wisdom saving throw or take 3d6 necrotic damage and become frightened until the end of its next turn.
+    onFalse: []
+    errorBehaviour: "false"
+
+  - type: condition
+    condition: choice == "glyph"
+    onTrue:
+      - type: text
+        title: Glyphbound Spell
+        text: Using your Scribes feature, you may inscribe a prepared 1st–3rd level spell into Vorax'Zhalethyr. You may cast the spell once without expending a spell slot. The spell uses Charisma as its casting ability, and the weapon acts as your focus.
+    onFalse: []
+    errorBehaviour: "false"
+
+  - type: condition
+    condition: choice == "siphon"
+    onTrue:
+      - type: counter
+        counter: dummy
+        amount: lastCounterRequestedAmount
+        allowOverflow: false
+      - type: variable
+        name: x
+        value: lastCounterRequestedAmount
+      - type: counter
+        counter:
+          slot: x
+        amount: "1"
+        allowOverflow: false
+        fixedValue: true
+      - type: target
+        target: self
+        effects:
+          - type: temphp
+            amount: 5*{x}
+          - type: text
+            text: You draw magic into your blade, gaining {5*x} temp HP.
+            title: Arcane Siphon
+    onFalse: []
+    errorBehaviour: "false"
+
+  - type: condition
+    condition: choice == "surge"
+    onTrue:
+      - type: roll
+        dice: 1d20
+        name: surge
+        hidden: false
+        displayName: Arcane Instability
+      - type: condition
+        condition: surge <= 2
+        onTrue:
+          - type: target
+            target: self
+            effects:
+              - type: damage
+                damage: 2d10 [psychic]
+              - type: text
+                title: Echo Surge!
+                text: A surge of unstable power lashes back. You take 2d10 psychic damage, and the spell slot is lost.
+        onFalse:
+          - type: text
+            title: Spell Held Stable
+            text: The arcane energies stabilize. No backlash occurs.
+    onFalse: []
+    errorBehaviour: "false"
+
+  - type: text
+    title: Lore
+    text: >-
+      Once the quill of a long-dead scribe who delved too deep into the Astral Echoes, Vorax'Zhalethyr was reforged into a scythe by a pact-wielder seeking power both ancient and personal. Its edge carves not only flesh, but memory.
+
+  - type: text
+    title: Features
+    text: >-
+      **Hexblade Weapon:** Counts as a pact weapon. You may use Charisma for attack and damage rolls.
+
+      **Eldritch Cleave:** Once per short or long rest, hit with a melee attack to force nearby creatures (10 ft) to make a DC (8 + Cha mod + prof) Wisdom save or take 3d6 necrotic damage and become frightened until the end of their next turn.
+
+      **Glyphbound Spell:** You may inscribe one 1st–3rd level prepared Wizard spell into the weapon using your Order of Scribes feature. It may be cast once using Charisma without a spell slot.
+
+      **Arcane Siphon:** As a bonus action, expend a spell slot to gain temporary HP equal to 5 × the slot level.
+
+      **Echo Surge (Curse):** When casting a spell through the blade, roll 1d20. On a 1–2, the spell slot is lost and you take 2d10 psychic damage.
+
+  - type: condition
+    condition: choice == "help"
+    onTrue:
+      - type: text
+        title: Help
+        text: >-
+          - Melee Attack: `-choice`  
+          - Eldritch Cleave: `-choice cleave`  
+          - Glyphbound Spell: `-choice glyph`  
+          - Arcane Siphon (with -amt slot level): `-choice siphon -amt 2`  
+          - Echo Surge (before casting spell): `-choice surge`
+    onFalse: []
+    errorBehaviour: "false"
+
+_v: 2
+proper: true
+thumb: https://www.worldanvil.com/uploads/images/98a97d67664a4f8e4b842b2f69c1a4f2.jpg
