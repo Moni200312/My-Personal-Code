@@ -1,18 +1,28 @@
 name: Divergent Fist
 automation:
   - type: target
-    target: each
+    target: all
     effects:
-      - type: damage
-        damage: 1d8[bludgeoning]
-      - type: text
-        text: Yuji's fist lands first—then cursed energy detonates a moment later.
-      - type: damage
-        damage: 1d6[force]
-        delay: 1
+      - type: attack
+        attackBonus: "strMod + profBonus"
+        hit:
+          - type: damage
+            damage: "1d8 + strMod"
+            damageType: bludgeoning
+          - type: text
+            text: The physical strike lands first.
+          - type: damage
+            damage: "1d6"
+            damageType: force
+          - type: text
+            text: A delayed surge of cursed energy erupts — Divergent Fist.
+        miss:
+          - type: text
+            text: The punch misses its target.
   - type: text
-    text: The delayed cursed energy strike creates a second impact.
+    text: Yuji's cursed energy lags slightly behind his physical strike,
+      creating a second shock of damage.
 _v: 2
-proper: false
-verb: strikes with Divergent Fist
+proper: true
+verb: strikes with
 activation_type: 1
