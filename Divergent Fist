@@ -7,7 +7,7 @@ automation:
         attackBonus: "5 + 6"
         hit:
           - type: damage
-            damage: "1d8 + strMod"
+            damage: "1d8 + 5"
             damageType: bludgeoning
           - type: text
             text: The physical strike lands first.
