@@ -4,7 +4,7 @@ automation:
     target: all
     effects:
       - type: attack
-        attackBonus: "strMod + profBonus"
+        attackBonus: "5 + 6"
         hit:
           - type: damage
             damage: "1d8 + strMod"
