@@ -1,0 +1,46 @@
+```py
+name: Oni Tongue (Prone)
+automation:
+- type: target
+  target: all
+  effects:
+  - type: save
+    stat: wis
+    fail:
+    - type: ieffect2
+      name: Prone
+      duration: null
+      effects:
+        attack_advantage: '-1'
+      attacks: []
+      buttons:
+      - label: Stand Up
+        automation:
+        - type: remove_ieffect
+        verb: stands up
+        style: null
+        defaultDC: null
+        defaultAttackBonus: null
+        defaultCastingMod: null
+      end: false
+      conc: false
+      desc: A prone creature's only movement option is to crawl, unless it stands
+        up and thereby ends the condition
+      stacking: false
+      save_as: null
+      parent: null
+      target_self: false
+      tick_on_caster: false
+    success: []
+    dc: '{{8+proficiencyBonus+charismaMod}}'
+- type: text
+  text: With every incantation cast, the twisted and demonic voice of the first oni
+    can be heard within your speech. When you cast a spell that requires a Verbal
+    component and targets a single creature, you can also take a Bonus Action to cause
+    the target to recoil in fear. The target must make a Wisdom saving throw against
+    your spell save DC. On a failed save, the target has the Prone condition.
+  title: Effect
+_v: 2
+proper: true
+verb: uses
+activation_type: 3```
