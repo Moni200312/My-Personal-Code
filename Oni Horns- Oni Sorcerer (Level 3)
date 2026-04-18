@@ -1,0 +1,20 @@
+```py
+name: Oni Horns
+automation:
+- type: target
+  target: all
+  effects:
+  - type: damage
+    damage: 1d6[piercing]
+    overheal: false
+- type: text
+  text: You gain horns, which rapidly grow and jut out from your head. When casting
+    a cantrip that requires you to make a melee or ranged spell attack, you can instead
+    make a melee spell attack using your horns, channeling the spell through them.
+    When you hit a creature with a cantrip cast in this way, the target takes an extra
+    1d6 Piercing damage.
+  title: Effect
+_v: 2
+proper: true
+activation_type: 2
+```
