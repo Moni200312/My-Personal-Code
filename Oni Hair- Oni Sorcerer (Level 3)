@@ -1,0 +1,30 @@
+```py
+name: Oni Hair
+automation:
+- type: target
+  target: self
+  effects:
+  - type: ieffect2
+    name: Pale Protection
+    duration: null
+    effects:
+      ac_bonus: '2'
+    attacks: []
+    buttons: []
+    end: false
+    conc: false
+    desc: null
+    stacking: false
+    save_as: null
+    parent: null
+    target_self: false
+    tick_on_caster: false
+- type: text
+  text: Your hair turns a shocking white and stretches towards the ground as it grows
+    to cover your back. You gain a +2 bonus to AC.
+  title: Effect
+_v: 2
+proper: true
+verb: grows their
+activation_type: 2
+```
