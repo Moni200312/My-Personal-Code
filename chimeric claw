@@ -1,0 +1,29 @@
+!a import name: Chimeric Claw
+automation:
+- type: target
+  target: all
+  effects:
+  - type: save
+    stat: dex
+    fail:
+    - type: damage
+      damage: 2d10
+      dtype: slashing
+    - type: damage
+      damage: 2d8
+      dtype: lightning
+    success:
+    - type: damage
+      damage: 1d10
+      dtype: slashing
+    - type: damage
+      damage: 1d8
+      dtype: lightning
+    dc: '{{8+proficiencyBonus+strengthMod}}'
+- type: text
+  text: The giant chimeric creature lashes out with its enormous claw, tearing through flesh before unleashing a violent surge of lightning. The target must make a Dexterity saving throw against the creature's save DC, taking full damage on a failed save or half damage on a successful one.
+  title: Effect
+_v: 2
+proper: true
+verb: slashes
+activation_type: 1
